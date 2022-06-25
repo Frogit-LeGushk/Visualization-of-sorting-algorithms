@@ -5,10 +5,10 @@
 - `make build_and_run_main`
 
 ### Screencast of app:
-![alt text]()
+![alt text](https://github.com/Acool4ik/Visualization-of-sorting-algorithms/blob/master/images/screencast.gif)
 ### Time dependency of sorts:
-![alt text]()
-![alt text]()
-![alt text]()
-![alt text]()
-![alt text]()
+![alt text](https://github.com/Acool4ik/Visualization-of-sorting-algorithms/blob/master/images/insertsort.jpg)
+![alt text](https://github.com/Acool4ik/Visualization-of-sorting-algorithms/blob/master/images/choicemethodsort.jpg)
+![alt text](https://github.com/Acool4ik/Visualization-of-sorting-algorithms/blob/master/images/heapsort.jpg)
+![alt text](https://github.com/Acool4ik/Visualization-of-sorting-algorithms/blob/master/images/mergesort.jpg)
+![alt text](https://github.com/Acool4ik/Visualization-of-sorting-algorithms/blob/master/images/quicksort.jpg)
