@@ -18,7 +18,7 @@ extern "C" {
     extern double mesure_time();
     extern void fill_random(int *arr, int n, int max_num, bool can_neg, int offset);
     extern void testing_sort(int *arr, int n, int max_num, bool can_neg,
-                            sort_cb_t callback, char *name_sort, char *fname);
+                            sort_cb_t callback, char const * name_sort, char const * fname);
 
     extern void choicemethodsort(int *arr, int n);
     extern void insertsort(int *arr, int n);

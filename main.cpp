@@ -269,22 +269,27 @@ void fill_random(int *arr, int n, int max_num, bool can_neg, int offset = 0)
         arr[i] = (rand() % max_num) * ((i % 2 && can_neg) ? -1 : 1) + offset;
 }
 void testing_sort(int *arr, int n, int max_num, bool can_neg,
-                         sort_cb_t callback, char *name_sort, char * fname)
+                         sort_cb_t callback, char const * name_sort, char const * fname)
 {
-    assert(arr && n > 0 && max_num > 0 && callback && name_sort && fname);
+    assert(arr && n > 0 && max_num > 0 && callback && name_sort);
 
-    fill_random(arr, n, max_num, can_neg);
+    fill_random(arr, n, max_num, can_neg, 0);
     mesure_time();
         callback(arr, n);
     double seconds = mesure_time();
     bool res_status = check_sort(arr, n);
 
-    FILE *fp = fopen(fname, "wb");
-    struct ResultSort res = {"", n, max_num, seconds, can_neg, res_status};
-    strcpy(res.name_sort, name_sort);
-    fseek(fp, 0, SEEK_END);
-    fwrite((void *)(&res), sizeof(struct ResultSort), 1, fp);
-    fclose(fp);
+    if(fname)
+    {
+        FILE *fp = fopen(fname, "wb");
+        struct ResultSort res = {"", n, max_num, seconds, can_neg, res_status};
+        strcpy(res.name_sort, name_sort);
+        fseek(fp, 0, SEEK_END);
+        fwrite((void *)(&res), sizeof(struct ResultSort), 1, fp);
+        fclose(fp);
+    }
+    else
+        cout << n << "\t" << seconds << endl;
 }
 
 }
@@ -736,6 +741,8 @@ void heapsort(int *arr, int n)
     int *heap_arr = (int *)malloc((n+1) * sizeof(int));
     assert(heap_arr);
 
+
+    #if !ASSEMBLY_LIB
     memcpy((void *)heap_arr, (void *)arr, n * sizeof(int));
     memset((void *)arr, 0, n * sizeof(int));
 
@@ -749,6 +756,17 @@ void heapsort(int *arr, int n)
 
     memcpy((void *)arr, (void *)heap_arr, n * sizeof(int));
         __draw_state(fast_delay);
+    #endif
+
+
+    #if ASSEMBLY_LIB
+    struct heap sh = {heap_arr, 0, (n+1)};
+
+    for(i = 0; i < n; i++)
+        __insert_heap(&sh, arr[i]);
+    for(i = 0; i < n; i++)
+        arr[i] = __min_heap(&sh);
+    #endif // ASSEMBLY_LIB
 }
 
 }
